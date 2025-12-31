@@ -2,7 +2,7 @@ module Parser where
 
 import AST (Expr) 
 
-import Data.Char (isDigit, digitToInt)
+import Data.Char (isDigit, digitToInt, isSpace)
 
 import Control.Applicative (Alternative(empty, (<|>)), Applicative(..))
 
@@ -75,3 +75,7 @@ many p = some p <|> pure []
 -- parses multi-digit integer
 pNumber :: Parser Integer
 pNumber = read <$> some pDigit
+
+-- issue is that the string could contain white spaces
+pWhitespace :: Parser String
+pWhitespace =  many (satisfy isSpace)

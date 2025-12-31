@@ -1,6 +1,9 @@
 module Main (main) where
 
-import Parser (Parser, runParser, pDigitInt, pChar, pNumber)
+import Parser 
+-- (Parser, runParser, pDigitInt, pChar, pNumber, pWhitespace, many, some)
+import Data.Char 
+
 
 testParser :: Show a => Parser a -> String -> IO ()
 testParser parser input =
@@ -61,3 +64,6 @@ main = do
 
     putStrLn "\n> Attempting to parse an empty string:"
     testParser pNumber ""
+
+    putStrLn "\n> Attempting to parse WHITE SPACE:"
+    testParser pWhitespace " 1 2 3 "
