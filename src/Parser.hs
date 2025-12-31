@@ -79,3 +79,8 @@ pNumber = read <$> some pDigit
 -- issue is that the string could contain white spaces
 pWhitespace :: Parser String
 pWhitespace =  many (satisfy isSpace)
+
+lexeme :: Parser a -> Parser a
+lexeme p = (pWhitespace *> p) <* pWhitespace 
+
+pNumberLexeme = lexeme pNumber
