@@ -84,3 +84,14 @@ lexeme :: Parser a -> Parser a
 lexeme p = (pWhitespace *> p) <* pWhitespace 
 
 pNumberLexeme = lexeme pNumber
+
+pString :: String -> Parser String
+pString [] = pure []
+pString (x:xs) = Parser $ \input ->
+    case runParser pChar input of
+        Nothing -> Nothing
+
+        Just (f, rest1) ->
+            case f==x of
+                Nothing -> Nothing
+                Just (val, rest2) -> runParser xs rest2
